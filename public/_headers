@@ -1,0 +1,20 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Cache assets aggressively (hashed filenames in /_astro/)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML — short cache so deploys propagate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Sitemap and robots — short cache for crawlers
+/sitemap-*.xml
+  Cache-Control: public, max-age=3600
+/robots.txt
+  Cache-Control: public, max-age=3600
