@@ -1,0 +1,161 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Gallery from '@components/Gallery.astro';
+import { t, localizedUrl } from '@i18n/utils';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('realizacje', (e) =>
+    e.data.locale === 'pl' && !e.data.draft,
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.data.canonicalSlug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const locale = 'pl' as const;
+const { data } = entry;
+const clientLabel = data.clientPublic ? data.client : 'Klient prywatny';
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${data.title} — ${t(locale, 'site.name')}`}
+  description={data.excerpt}
+  canonicalPath={`realizacje/${data.canonicalSlug}`}
+>
+  <article>
+    <section class="container-default pt-12 md:pt-24">
+      <p class="font-mono text-xs text-[var(--color-rust)] uppercase tracking-widest">
+        <a href={localizedUrl(locale, 'realizacje')} class="hover:underline">
+          {t(locale, 'nav.realizations')}
+        </a>
+      </p>
+      <h1
+        class="mt-4 text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight max-w-[24ch]"
+      >
+        {data.title}
+      </h1>
+      <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+        {data.excerpt}
+      </p>
+    </section>
+
+    <section class="container-default mt-12">
+      <Image
+        src={data.cover}
+        alt={data.title}
+        widths={[800, 1200, 1600, 2000]}
+        sizes="(min-width: 1280px) 1216px, 100vw"
+        class="w-full h-auto"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </section>
+
+    <section
+      class="container-default mt-16 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24"
+    >
+      <dl class="grid grid-cols-2 md:grid-cols-1 gap-y-6 text-sm">
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+            {t(locale, 'realizations.meta.client')}
+          </dt>
+          <dd class="mt-1 font-semibold">{clientLabel}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+            {t(locale, 'realizations.meta.fair')}
+          </dt>
+          <dd class="mt-1">{data.fair}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+            {t(locale, 'realizations.meta.year')}
+          </dt>
+          <dd class="mt-1 tabular-nums">{data.year}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+            {t(locale, 'realizations.meta.city')}
+          </dt>
+          <dd class="mt-1">{data.city}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+            {t(locale, 'realizations.meta.area')}
+          </dt>
+          <dd class="mt-1 tabular-nums">{data.area_m2} m²</dd>
+        </div>
+      </dl>
+
+      <div class="prose-content max-w-[68ch]">
+        <Content />
+      </div>
+    </section>
+
+    <section class="container-default mt-16 md:mt-24">
+      <Gallery
+        images={data.gallery}
+        alt={data.title}
+        idPrefix={`g-${data.canonicalSlug}`}
+      />
+    </section>
+
+    <section class="container-default mt-24 md:mt-36 border-t border-[var(--color-iron)] pt-12">
+      <h2 class="text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold max-w-[20ch]">
+        Twój brief — wstępna wycena w 1 dzień roboczy.
+      </h2>
+      <a
+        href={localizedUrl(locale, 'kontakt')}
+        class="inline-block mt-8 bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+      >
+        {t(locale, 'cta.brief')}
+      </a>
+    </section>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .prose-content h2 {
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+  }
+  .prose-content h2:first-child {
+    margin-top: 0;
+  }
+  .prose-content h3 {
+    font-size: var(--text-h3);
+    line-height: var(--leading-h2);
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+  }
+  .prose-content p {
+    margin-block: 1em;
+    line-height: var(--leading-body);
+  }
+  .prose-content ul,
+  .prose-content ol {
+    margin-block: 1em;
+    padding-inline-start: 1.5em;
+  }
+  .prose-content li {
+    margin-block: 0.4em;
+  }
+  .prose-content strong {
+    font-weight: 600;
+  }
+  .prose-content a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+</style>

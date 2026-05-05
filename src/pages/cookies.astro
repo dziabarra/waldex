@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const locale = 'pl' as const;
+---
+
+<BaseLayout
+  locale={locale}
+  title="Polityka cookies — Waldex"
+  description="Jak używamy plików cookies i analityki strony."
+  canonicalPath="cookies"
+  noindex={true}
+>
+  <article class="container-default pt-12 md:pt-24 max-w-[68ch] prose-content">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold"
+    >
+      Polityka cookies
+    </h1>
+
+    <h2>Co to są cookies</h2>
+    <p>
+      Pliki cookies to małe pliki tekstowe zapisywane przez przeglądarkę. Część
+      jest niezbędna do działania strony, część służy do analityki.
+    </p>
+
+    <h2>Cookies używane na tej stronie</h2>
+
+    <h3>Niezbędne (zawsze aktywne)</h3>
+    <ul>
+      <li>
+        <strong>Cookie zgody</strong> — zapamiętuje Twój wybór z banera cookies,
+        żebyśmy nie pytali ponownie. Czas: 6 miesięcy.
+      </li>
+    </ul>
+
+    <h3>Analityczne (włączane po zgodzie)</h3>
+    <ul>
+      <li>
+        <strong>Google Analytics 4</strong> — anonimowy pomiar ruchu, źródeł
+        ruchu, popularności podstron. Działa w trybie <em>Consent Mode v2</em> —
+        do momentu wyrażenia zgody nie wysyła żadnych identyfikatorów osobowych.
+        Czas: 14 miesięcy.
+      </li>
+    </ul>
+
+    <h2>Twój wybór</h2>
+    <p>
+      Domyślnie cookies analityczne są <strong>wyłączone</strong>. Włącza je
+      dopiero kliknięcie "Akceptuj wszystkie" w banerze cookies. Możesz zmienić
+      decyzję w dowolnej chwili — link w stopce strony otwiera ponownie ustawienia.
+    </p>
+
+    <h2>Wyłączenie cookies w przeglądarce</h2>
+    <p>
+      Niezależnie od naszego banera, możesz zablokować cookies w ustawieniach
+      przeglądarki. Strona dalej działa, ale niektóre funkcje (np. zapamiętanie
+      Twojej zgody) mogą nie działać.
+    </p>
+  </article>
+</BaseLayout>

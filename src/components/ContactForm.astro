@@ -1,0 +1,175 @@
+---
+import { t } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+// Web3Forms access key — set in Cloudflare Pages env or local .env
+// At build time, missing key → form falls back to mailto: action.
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const FALLBACK_EMAIL = import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'Waldemar.sewerynn@gmail.com';
+
+const formAction = WEB3FORMS_KEY
+  ? 'https://api.web3forms.com/submit'
+  : `mailto:${FALLBACK_EMAIL}`;
+const formMethod = WEB3FORMS_KEY ? 'POST' : 'GET';
+
+const subjectPrefix = locale === 'pl' ? 'Brief Waldex —' : 'Waldex brief —';
+---
+
+<form
+  action={formAction}
+  method={formMethod}
+  class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl"
+>
+  {
+    WEB3FORMS_KEY && (
+      <>
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="from_name" value="Waldex Website" />
+        <input type="hidden" name="subject" value={`${subjectPrefix} new submission`} />
+        <input type="hidden" name="redirect" value={locale === 'pl' ? '/kontakt?ok' : '/en/contact?ok'} />
+      </>
+    )
+  }
+  {/* Honeypot — bots fill this; humans don't see it */}
+  <input
+    type="text"
+    name="botcheck"
+    tabindex="-1"
+    autocomplete="off"
+    class="absolute opacity-0 w-0 h-0 pointer-events-none"
+    aria-hidden="true"
+  />
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.fair')}
+    </span>
+    <input
+      type="text"
+      name="fair"
+      required
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.date')}
+    </span>
+    <input
+      type="text"
+      name="date"
+      placeholder={locale === 'pl' ? 'np. wrzesień 2026' : 'e.g. September 2026'}
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.area')}
+    </span>
+    <input
+      type="text"
+      name="area_m2"
+      inputmode="numeric"
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.budget')}
+    </span>
+    <input
+      type="text"
+      name="budget"
+      placeholder={locale === 'pl' ? 'np. 30 000 – 50 000 PLN' : 'e.g. 30 000 – 50 000 PLN'}
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block md:col-span-2">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.message')}
+    </span>
+    <textarea
+      name="message"
+      rows="4"
+      required
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none resize-none"
+    ></textarea>
+  </label>
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.email')}
+    </span>
+    <input
+      type="email"
+      name="email"
+      required
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-xs uppercase tracking-widest text-[var(--color-iron)]">
+      {t(locale, 'contact.form.phone')}
+    </span>
+    <input
+      type="tel"
+      name="phone"
+      class="mt-2 w-full bg-transparent border-b border-[var(--color-iron)] focus:border-[var(--color-ink)] py-2 outline-none"
+    />
+  </label>
+
+  <label class="block md:col-span-2 flex items-start gap-3">
+    <input
+      type="checkbox"
+      name="consent"
+      required
+      class="mt-1.5 accent-[var(--color-rust)]"
+    />
+    <span class="text-sm text-[var(--color-iron)]">
+      {t(locale, 'contact.form.consent')}
+    </span>
+  </label>
+
+  <div class="md:col-span-2">
+    <button
+      type="submit"
+      class="bg-[var(--color-ink)] text-[var(--color-paper)] px-8 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+    >
+      {t(locale, 'contact.form.submit')}
+    </button>
+  </div>
+</form>
+
+{/* Success message — revealed by client-side JS when URL has ?ok (after Web3Forms redirect).
+    Static build can't read query params at render time, so this stays hidden by default. */}
+<p
+  id="contact-form-success"
+  hidden
+  class="mt-6 p-4 border border-[var(--color-rust)] bg-[var(--color-bone)] text-[var(--color-ink)] font-mono text-sm"
+>
+  ✓ {t(locale, 'contact.form.success')}
+</p>
+
+<script>
+  if (
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).has('ok')
+  ) {
+    const ok = document.getElementById('contact-form-success');
+    if (ok) {
+      ok.removeAttribute('hidden');
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+</script>

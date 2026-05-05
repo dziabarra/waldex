@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const locale = 'en' as const;
+---
+
+<BaseLayout
+  locale={locale}
+  title="Cookie policy — Waldex"
+  description="How we use cookies and site analytics."
+  canonicalPath="cookies"
+  noindex={true}
+>
+  <article class="container-default pt-12 md:pt-24 max-w-[68ch] prose-content">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold"
+    >
+      Cookie policy
+    </h1>
+
+    <h2>What cookies are</h2>
+    <p>
+      Cookies are small text files stored by your browser. Some are required for
+      the site to function, others are for analytics.
+    </p>
+
+    <h2>Cookies used on this site</h2>
+
+    <h3>Necessary (always active)</h3>
+    <ul>
+      <li>
+        <strong>Consent cookie</strong> — remembers your choice from the cookie
+        banner so we don't ask again. Lifetime: 6 months.
+      </li>
+    </ul>
+
+    <h3>Analytics (enabled after consent)</h3>
+    <ul>
+      <li>
+        <strong>Google Analytics 4</strong> — anonymous traffic measurement,
+        traffic sources, page popularity. Operates in <em>Consent Mode v2</em> —
+        until you give consent, no personal identifiers are sent. Lifetime: 14
+        months.
+      </li>
+    </ul>
+
+    <h2>Your choice</h2>
+    <p>
+      By default, analytics cookies are <strong>disabled</strong>. They activate
+      only when you click "Accept all" in the cookie banner. You can change your
+      decision at any time — the footer link re-opens cookie settings.
+    </p>
+
+    <h2>Browser-level blocking</h2>
+    <p>
+      Regardless of our banner, you can block cookies in your browser settings.
+      The site still works, but some features (like remembering your consent)
+      may not.
+    </p>
+  </article>
+</BaseLayout>

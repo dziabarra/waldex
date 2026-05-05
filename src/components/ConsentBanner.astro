@@ -1,0 +1,171 @@
+---
+/**
+ * Cookie consent banner with Google Consent Mode v2 wiring.
+ *
+ * Loads vanilla-cookieconsent v3 on idle. When the user accepts/rejects analytics,
+ * we emit gtag('consent', 'update', ...) so GA4 (loaded via GTM in BaseHead)
+ * starts/stops collecting. Defaults are set to "denied" in BaseHead before GTM
+ * fires, so this only ever upgrades consent — never downgrades a denied state
+ * to granted without explicit user action.
+ */
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<div id="cc-mount" data-locale={locale}></div>
+
+<script>
+  import * as CookieConsent from 'vanilla-cookieconsent';
+  import 'vanilla-cookieconsent/dist/cookieconsent.css';
+
+  // Locale comes from a data-attr on the mount div so the script can stay framework-agnostic.
+  const mount = document.querySelector<HTMLDivElement>('#cc-mount');
+  const locale = (mount?.dataset.locale ?? 'pl') as 'pl' | 'en';
+
+  // Helper: forward consent decision to gtag (already loaded in BaseHead).
+  function syncGtagConsent() {
+    const analyticsGranted = CookieConsent.acceptedCategory('analytics');
+    const w = window as unknown as {
+      gtag?: (...args: unknown[]) => void;
+      dataLayer?: unknown[];
+    };
+    if (typeof w.gtag === 'function') {
+      w.gtag('consent', 'update', {
+        analytics_storage: analyticsGranted ? 'granted' : 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+    }
+  }
+
+  CookieConsent.run({
+    guiOptions: {
+      consentModal: { layout: 'box', position: 'bottom right', flipButtons: false },
+      preferencesModal: { layout: 'box', position: 'right' },
+    },
+    categories: {
+      necessary: { enabled: true, readOnly: true },
+      analytics: { enabled: false },
+    },
+    language: {
+      default: locale,
+      translations: {
+        pl: {
+          consentModal: {
+            title: 'Cookies i analytics',
+            description:
+              'Używamy plików cookies do analizy ruchu (Google Analytics 4). Bez Twojej zgody nie ładujemy żadnych skryptów śledzących. <a href="/cookies">Polityka cookies</a>.',
+            acceptAllBtn: 'Akceptuj wszystkie',
+            acceptNecessaryBtn: 'Tylko niezbędne',
+            showPreferencesBtn: 'Ustawienia',
+          },
+          preferencesModal: {
+            title: 'Ustawienia cookies',
+            acceptAllBtn: 'Akceptuj wszystkie',
+            acceptNecessaryBtn: 'Tylko niezbędne',
+            savePreferencesBtn: 'Zapisz wybór',
+            closeIconLabel: 'Zamknij',
+            sections: [
+              {
+                title: 'Niezbędne',
+                description:
+                  'Niezbędne do działania strony — np. zapamiętanie Twojego wyboru z tego okna.',
+                linkedCategory: 'necessary',
+              },
+              {
+                title: 'Analityka',
+                description:
+                  'Anonimowy pomiar ruchu przez Google Analytics 4 w trybie Consent Mode v2.',
+                linkedCategory: 'analytics',
+              },
+            ],
+          },
+        },
+        en: {
+          consentModal: {
+            title: 'Cookies and analytics',
+            description:
+              'We use cookies for traffic analytics (Google Analytics 4). No tracking scripts load without your consent. <a href="/en/cookies">Cookie policy</a>.',
+            acceptAllBtn: 'Accept all',
+            acceptNecessaryBtn: 'Only necessary',
+            showPreferencesBtn: 'Preferences',
+          },
+          preferencesModal: {
+            title: 'Cookie preferences',
+            acceptAllBtn: 'Accept all',
+            acceptNecessaryBtn: 'Only necessary',
+            savePreferencesBtn: 'Save choices',
+            closeIconLabel: 'Close',
+            sections: [
+              {
+                title: 'Necessary',
+                description:
+                  'Required for the site to work — e.g. remembering your choice from this dialog.',
+                linkedCategory: 'necessary',
+              },
+              {
+                title: 'Analytics',
+                description:
+                  'Anonymous traffic measurement via Google Analytics 4 in Consent Mode v2.',
+                linkedCategory: 'analytics',
+              },
+            ],
+          },
+        },
+      },
+    },
+    onConsent: () => syncGtagConsent(),
+    onChange: () => syncGtagConsent(),
+  });
+
+  // Footer "cookie settings" link target — call this from a button.
+  (window as unknown as { showCookiePreferences?: () => void }).showCookiePreferences =
+    () => CookieConsent.showPreferences();
+</script>
+
+<style is:global>
+  /* Override vanilla-cookieconsent defaults to match the "industrial premium" palette.
+     Variables documented at https://github.com/orestbida/cookieconsent */
+  #cc-main {
+    --cc-bg: var(--color-paper);
+    --cc-primary-color: var(--color-ink);
+    --cc-secondary-color: var(--color-iron);
+    --cc-btn-primary-bg: var(--color-ink);
+    --cc-btn-primary-color: var(--color-paper);
+    --cc-btn-primary-hover-bg: var(--color-rust);
+    --cc-btn-primary-hover-color: var(--color-paper);
+    --cc-btn-secondary-bg: transparent;
+    --cc-btn-secondary-color: var(--color-ink);
+    --cc-btn-secondary-border-color: var(--color-ink);
+    --cc-btn-secondary-hover-bg: var(--color-ink);
+    --cc-btn-secondary-hover-color: var(--color-paper);
+    --cc-btn-secondary-hover-border-color: var(--color-ink);
+    --cc-cookie-category-block-bg: var(--color-bone);
+    --cc-cookie-category-block-border: var(--color-iron);
+    --cc-toggle-on-bg: var(--color-rust);
+    --cc-toggle-off-bg: var(--color-iron);
+    --cc-toggle-readonly-bg: var(--color-concrete);
+    --cc-link-color: var(--color-rust);
+    --cc-modal-border-radius: 0;
+    --cc-btn-border-radius: 0;
+    font-family: var(--font-body);
+  }
+  #cc-main .cm__title,
+  #cc-main .pm__title {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  #cc-main .cm__btn,
+  #cc-main .pm__btn {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+</style>

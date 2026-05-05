@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { t, localizedUrl } from '@i18n/utils';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog', (e) =>
+    e.data.locale === 'en' && !e.data.draft,
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.data.canonicalSlug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const locale = 'en' as const;
+const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${entry.data.title} — ${t(locale, 'nav.blog')}`}
+  description={entry.data.description}
+  canonicalPath={`blog/${entry.data.canonicalSlug}`}
+>
+  <article class="container-default pt-12 md:pt-24 max-w-[68ch]">
+    <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-rust)]">
+      <a href={localizedUrl(locale, 'blog')} class="hover:underline">
+        {t(locale, 'nav.blog')}
+      </a>
+      <span class="text-[var(--color-iron)] ml-3">
+        {fmt.format(entry.data.date)}
+      </span>
+    </p>
+    <h1
+      class="mt-6 text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight"
+    >
+      {entry.data.title}
+    </h1>
+    <div class="prose-content mt-12">
+      <Content />
+    </div>
+
+    <footer class="mt-24 border-t border-[var(--color-iron)] pt-8">
+      <a
+        href={localizedUrl(locale, 'blog')}
+        class="font-mono text-sm uppercase tracking-widest hover:text-[var(--color-rust)] transition-colors"
+      >
+        ← {t(locale, 'nav.blog')}
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

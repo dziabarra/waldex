@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { t, localizedUrl } from '@i18n/utils';
+
+import img1 from '@assets/images/proces/01-projektowanie.jpg';
+import img2 from '@assets/images/proces/02-akceptacja-bryly-a.jpg';
+import img3 from '@assets/images/proces/03-akceptacja-bryly-b.jpg';
+import img4 from '@assets/images/proces/04-akceptacja-bryly-c.jpg';
+import img5 from '@assets/images/proces/05-akceptacja-bryly-d.jpg';
+import img6 from '@assets/images/proces/06-projektowanie-grafiki.jpg';
+import img7 from '@assets/images/proces/07-produkcja-logotypow-a.jpg';
+import img8 from '@assets/images/proces/08-produkcja-logotypow-b.jpg';
+import img9 from '@assets/images/proces/09-produkcja-logotypow-c.jpg';
+
+const locale = 'en' as const;
+
+const steps = [
+  {
+    n: 1,
+    title: 'Design',
+    lead: 'Brief, 3D concept, material selection. We show 2-4 shape variants before we cut anything.',
+    bullets: [
+      '3D visualizations from every angle of the stand, in full scene lighting',
+      'Material samples (laminates, dibond, PVC, LED lighting) available at our office',
+      'Iteration: 1-2 rounds of revisions included in the price',
+    ],
+    images: [img1, img2, img3, img4, img5, img6],
+  },
+  {
+    n: 2,
+    title: 'Manufacturing',
+    lead: 'Everything in our own facility — no subcontractors on critical elements.',
+    bullets: [
+      'CNC + laser for precise panel cutting',
+      'Large-format UV printing on rigid substrates',
+      'Modular aluminum (compatible with trade fair standards)',
+      'Spatial logotypes, custom furniture, LED lighting',
+    ],
+    images: [img7, img8, img9],
+  },
+  {
+    n: 3,
+    title: 'Transport',
+    lead: 'Logistics for fairs across Poland and the EU. Full accountability on delivery time.',
+    bullets: [
+      'Modular packing — every element protected for transport',
+      'Own domestic transport, vetted EU partner',
+      'Hall slot coordinated directly with the organizer',
+    ],
+    images: [],
+  },
+  {
+    n: 4,
+    title: 'Installation',
+    lead: 'On-site crew, 24/7 build until the stand is fully ready for opening day.',
+    bullets: [
+      'Crew of 2-4 people depending on stand scale',
+      'Dedicated coordinator available to the client throughout the build',
+      'Build time: typically 1-2 days for 30-50 m², 3-4 days for 80+ m²',
+    ],
+    images: [],
+  },
+  {
+    n: 5,
+    title: 'Dismantling',
+    lead: 'After the fair — fast dismantling and warehousing of reusable elements.',
+    bullets: [
+      'Dismantle on the closing day or the next morning',
+      'Own warehouse — modular elements stored for the next edition',
+      'Wear audit: list of elements to refurbish before next use',
+    ],
+    images: [],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${t(locale, 'nav.services')} — ${t(locale, 'site.name')}`}
+  description="Full trade fair stand cycle: design, manufacturing, transport, installation, dismantling. One team, one accountability."
+  canonicalPath="uslugi"
+>
+  <section class="container-default pt-12 md:pt-24">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight max-w-[20ch]"
+    >
+      {t(locale, 'nav.services')}
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+      We deliver the full trade fair stand cycle — from the first conversation
+      with the client through to dismantling after the fair. One team, one
+      accountability for deadlines and execution quality.
+    </p>
+  </section>
+
+  {
+    steps.map((step) => (
+      <section
+        class="container-default mt-24 md:mt-36 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-16 items-start"
+      >
+        <header>
+          <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-rust)]">
+            {`0${step.n}`}
+          </p>
+          <h2
+            class="mt-3 text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold"
+          >
+            {step.title}
+          </h2>
+        </header>
+        <div>
+          <p class="text-lg max-w-[60ch]">{step.lead}</p>
+          <ul class="mt-6 space-y-2 list-none p-0">
+            {step.bullets.map((b) => (
+              <li class="flex gap-3 text-[var(--color-iron)]">
+                <span class="text-[var(--color-rust)] font-mono text-sm">/</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          {step.images.length > 0 && (
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-3 gap-2">
+              {step.images.map((img, idx) => (
+                <Image
+                  src={img}
+                  alt={`${step.title} — ${idx + 1}`}
+                  widths={[300, 600]}
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  class="aspect-[4/3] object-cover w-full bg-[var(--color-graphite)]"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="container-default mt-24 md:mt-36 border-t border-[var(--color-iron)] pt-12">
+    <h2 class="text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold max-w-[24ch]">
+      Send a brief — preliminary quote in 1 business day.
+    </h2>
+    <a
+      href={localizedUrl(locale, 'kontakt')}
+      class="inline-block mt-8 bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+    >
+      {t(locale, 'cta.brief')}
+    </a>
+  </section>
+</BaseLayout>

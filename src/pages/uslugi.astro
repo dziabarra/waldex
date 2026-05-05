@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { t, localizedUrl } from '@i18n/utils';
+
+import img1 from '@assets/images/proces/01-projektowanie.jpg';
+import img2 from '@assets/images/proces/02-akceptacja-bryly-a.jpg';
+import img3 from '@assets/images/proces/03-akceptacja-bryly-b.jpg';
+import img4 from '@assets/images/proces/04-akceptacja-bryly-c.jpg';
+import img5 from '@assets/images/proces/05-akceptacja-bryly-d.jpg';
+import img6 from '@assets/images/proces/06-projektowanie-grafiki.jpg';
+import img7 from '@assets/images/proces/07-produkcja-logotypow-a.jpg';
+import img8 from '@assets/images/proces/08-produkcja-logotypow-b.jpg';
+import img9 from '@assets/images/proces/09-produkcja-logotypow-c.jpg';
+
+const locale = 'pl' as const;
+
+const steps = [
+  {
+    n: 1,
+    title: 'Projekt',
+    lead: 'Brief, koncepcja 3D, dobór materiałów. Pokazujemy 2-4 warianty bryły zanim cokolwiek wycinamy.',
+    bullets: [
+      'Wizualizacje 3D z każdej strony stoiska, w pełnym oświetleniu sceny',
+      'Próbki materiałów (laminaty, dibond, PCV, oświetlenie LED) do oglądu w biurze',
+      'Iteracja: 1-2 rundy poprawek wliczone w cenę',
+    ],
+    images: [img1, img2, img3, img4, img5, img6],
+  },
+  {
+    n: 2,
+    title: 'Produkcja',
+    lead: 'Wszystko we własnej hali — bez podwykonawców na krytyczne elementy.',
+    bullets: [
+      'CNC + laser do precyzyjnego cięcia paneli',
+      'Druk wielkoformatowy UV na sztywnych podłożach',
+      'Aluminium modułowe (kompatybilne z standardami targowymi)',
+      'Logotypy przestrzenne, meble custom, oświetlenie LED',
+    ],
+    images: [img7, img8, img9],
+  },
+  {
+    n: 3,
+    title: 'Transport',
+    lead: 'Logistyka pod targi w Polsce i UE. Pełna odpowiedzialność za czas dostawy.',
+    bullets: [
+      'Pakowanie modułowe — chronimy każdy element przed transportem',
+      'Własny transport krajowy, sprawdzony partner UE',
+      'Slot na hali targowej skoordynowany bezpośrednio z organizatorem',
+    ],
+    images: [],
+  },
+  {
+    n: 4,
+    title: 'Montaż',
+    lead: 'Ekipa techniczna na miejscu, montaż 24/7 do pełnej gotowości stoiska na otwarcie.',
+    bullets: [
+      'Ekipa 2-4 osoby zależnie od skali stoiska',
+      'Dedykowany koordynator dostępny dla klienta przez całą budowę',
+      'Czas budowy: zazwyczaj 1-2 dni dla 30-50 m², 3-4 dni dla 80+ m²',
+    ],
+    images: [],
+  },
+  {
+    n: 5,
+    title: 'Demontaż',
+    lead: 'Po targach — szybki demontaż i magazynowanie elementów wielokrotnego użytku.',
+    bullets: [
+      'Demontaż w dniu zakończenia targów lub kolejny dzień rano',
+      'Magazyn własny — przechowanie elementów modułowych do następnej edycji',
+      'Audyt zużycia: lista elementów do regeneracji przed kolejnym wykorzystaniem',
+    ],
+    images: [],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${t(locale, 'nav.services')} — ${t(locale, 'site.name')}`}
+  description="Pełen cykl realizacji stoiska targowego: projekt, produkcja, transport, montaż, demontaż. Jeden zespół, jedna odpowiedzialność."
+  canonicalPath="uslugi"
+>
+  <section class="container-default pt-12 md:pt-24">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight max-w-[20ch]"
+    >
+      {t(locale, 'nav.services')}
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+      Robimy pełen cykl realizacji stoiska targowego — od pierwszej rozmowy z
+      klientem po demontaż po targach. Jeden zespół, jedna odpowiedzialność za
+      terminy i jakość wykonania.
+    </p>
+  </section>
+
+  {
+    steps.map((step) => (
+      <section
+        class="container-default mt-24 md:mt-36 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-16 items-start"
+      >
+        <header>
+          <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-rust)]">
+            {`0${step.n}`}
+          </p>
+          <h2
+            class="mt-3 text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold"
+          >
+            {step.title}
+          </h2>
+        </header>
+        <div>
+          <p class="text-lg max-w-[60ch]">{step.lead}</p>
+          <ul class="mt-6 space-y-2 list-none p-0">
+            {step.bullets.map((b) => (
+              <li class="flex gap-3 text-[var(--color-iron)]">
+                <span class="text-[var(--color-rust)] font-mono text-sm">/</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          {step.images.length > 0 && (
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-3 gap-2">
+              {step.images.map((img, idx) => (
+                <Image
+                  src={img}
+                  alt={`${step.title} — ${idx + 1}`}
+                  widths={[300, 600]}
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  class="aspect-[4/3] object-cover w-full bg-[var(--color-graphite)]"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="container-default mt-24 md:mt-36 border-t border-[var(--color-iron)] pt-12">
+    <h2 class="text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold max-w-[24ch]">
+      Wyślij brief — wstępna wycena w 1 dzień roboczy.
+    </h2>
+    <a
+      href={localizedUrl(locale, 'kontakt')}
+      class="inline-block mt-8 bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+    >
+      {t(locale, 'cta.brief')}
+    </a>
+  </section>
+</BaseLayout>

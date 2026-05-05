@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  images: ImageMetadata[];
+  alt: string;
+  idPrefix?: string;
+}
+
+const { images, alt, idPrefix = 'img' } = Astro.props;
+---
+
+<div class="gallery">
+  <ol class="grid grid-cols-1 md:grid-cols-2 gap-2 list-none p-0">
+    {
+      images.map((image, idx) => {
+        const id = `${idPrefix}-${idx + 1}`;
+        return (
+          <li>
+            <a href={`#${id}`} class="block aspect-[4/3] overflow-hidden bg-[var(--color-graphite)]">
+              <Image
+                src={image}
+                alt={`${alt} — ${idx + 1}`}
+                widths={[400, 800, 1200]}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                class="w-full h-full object-cover"
+                loading={idx < 2 ? 'eager' : 'lazy'}
+              />
+            </a>
+            <div id={id} class="lightbox" aria-hidden="true">
+              <a href="#_" class="lightbox-close" aria-label="Close lightbox">
+                <Image
+                  src={image}
+                  alt={`${alt} — ${idx + 1}`}
+                  widths={[800, 1280, 1920]}
+                  sizes="100vw"
+                  class="lightbox-image"
+                />
+              </a>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ol>
+</div>
+
+<style>
+  .gallery .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: var(--z-modal);
+  }
+  .gallery .lightbox:target {
+    display: flex;
+  }
+  .gallery .lightbox-close {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .gallery .lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+</style>

@@ -46,6 +46,15 @@ const year = new Date().getFullYear();
             {t(locale, 'footer.cookies')}
           </a>
         </li>
+        <li>
+          <button
+            type="button"
+            onclick="window.showCookiePreferences && window.showCookiePreferences()"
+            class="text-left underline-offset-4 hover:underline cursor-pointer bg-transparent p-0 border-0 font-inherit text-inherit"
+          >
+            {locale === 'pl' ? 'Ustawienia cookies' : 'Cookie preferences'}
+          </button>
+        </li>
       </ul>
     </div>
   </div>

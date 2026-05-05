@@ -1,0 +1,86 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const locale = 'en' as const;
+const lastUpdate = '2026-05-05';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Privacy policy — Waldex"
+  description="How Waldex processes personal data."
+  canonicalPath="polityka-prywatnosci"
+  noindex={true}
+>
+  <article class="container-default pt-12 md:pt-24 max-w-[68ch] prose-content">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold"
+    >
+      Privacy policy
+    </h1>
+    <p class="text-[var(--color-iron)] font-mono text-xs uppercase tracking-widest mt-4">
+      Last update: {lastUpdate}
+    </p>
+
+    <p class="mt-12 p-4 border border-[var(--color-rust)] bg-[var(--color-bone)] text-sm">
+      <strong>Draft.</strong> Final text will be filled in once company details
+      (legal name, tax ID, registered address) are confirmed.
+    </p>
+
+    <h2>1. Data controller</h2>
+    <p>
+      The data controller is <strong>[COMPANY NAME]</strong>, tax ID
+      <strong>[TAX ID]</strong>, registered at
+      <strong>[ADDRESS]</strong>. Contact:
+      <a href="mailto:Waldemar.sewerynn@gmail.com">Waldemar.sewerynn@gmail.com</a>,
+      phone +48 608 038 746.
+    </p>
+
+    <h2>2. Purposes and legal bases</h2>
+    <p>We process personal data for the following purposes:</p>
+    <ul>
+      <li>
+        <strong>Responding to enquiries</strong> — Article 6(1)(b) GDPR (steps
+        taken at the data subject's request prior to entering a contract)
+      </li>
+      <li>
+        <strong>Contract performance</strong> — Article 6(1)(b) GDPR
+      </li>
+      <li>
+        <strong>Site analytics</strong> (Google Analytics 4) — Article 6(1)(a)
+        GDPR (consent given via the cookie banner)
+      </li>
+      <li>
+        <strong>Tax and accounting obligations</strong> — Article 6(1)(c) GDPR
+      </li>
+    </ul>
+
+    <h2>3. Retention period</h2>
+    <ul>
+      <li>Quote correspondence: 12 months from last contact</li>
+      <li>Contract and financial documents: 5 years (per accounting law)</li>
+      <li>Analytics data (GA4): 14 months</li>
+    </ul>
+
+    <h2>4. Data subject rights</h2>
+    <p>
+      You have the right to access your data, rectify it, delete it, restrict
+      processing, port it, object, and lodge a complaint with the Polish
+      President of the Personal Data Protection Office.
+    </p>
+
+    <h2>5. Recipients</h2>
+    <p>
+      Data may be passed to trusted processors acting on our behalf: email
+      provider (Google Workspace), contact form (Web3Forms), analytics platform
+      (Google Analytics 4 / Cloudflare Analytics), hosting (Cloudflare Pages —
+      Germany/EU).
+    </p>
+
+    <h2>6. Cookies</h2>
+    <p>
+      Cookie details are described in our
+      <a href="/en/cookies">Cookie policy</a>.
+    </p>
+  </article>
+</BaseLayout>

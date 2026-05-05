@@ -1,10 +1,22 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import HeroHome from '@components/HeroHome.astro';
 import ProcessSteps from '@components/ProcessSteps.astro';
-import { t } from '@i18n/utils';
+import RealizacjaCard from '@components/RealizacjaCard.astro';
+import { t, localizedUrl } from '@i18n/utils';
 
 const locale = 'en' as const;
+
+const featured = (
+  await getCollection('realizacje', (e) =>
+    e.data.locale === 'en' && e.data.featured && !e.data.draft,
+  )
+).sort(
+  (a, b) =>
+    (a.data.featuredOrder ?? 99) - (b.data.featuredOrder ?? 99) ||
+    b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
 ---
 
 <BaseLayout
@@ -15,4 +27,53 @@ const locale = 'en' as const;
 >
   <HeroHome locale={locale} />
   <ProcessSteps locale={locale} />
+
+  {
+    featured.length > 0 && (
+      <section
+        class="container-default mt-24 md:mt-36"
+        aria-labelledby="featured-heading"
+      >
+        <div class="flex items-baseline justify-between gap-6 flex-wrap">
+          <h2
+            id="featured-heading"
+            class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold max-w-[20ch]"
+          >
+            Selected realizations
+          </h2>
+          <a
+            href={localizedUrl(locale, 'realizacje')}
+            class="font-mono text-sm uppercase tracking-widest hover:text-[var(--color-rust)] transition-colors"
+          >
+            {t(locale, 'cta.see_realizations')} →
+          </a>
+        </div>
+        <ul class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 list-none p-0">
+          {featured.slice(0, 3).map((entry) => (
+            <li>
+              <RealizacjaCard entry={entry} locale={locale} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section
+    class="container-default mt-24 md:mt-36 border-t border-[var(--color-iron)] pt-12 pb-24"
+    aria-labelledby="cta-heading"
+  >
+    <h2
+      id="cta-heading"
+      class="text-[length:var(--text-h2)] leading-[var(--leading-h2)] font-semibold max-w-[24ch]"
+    >
+      Tell us what you need. We come back with a preliminary quote in 1 business day.
+    </h2>
+    <a
+      href={localizedUrl(locale, 'kontakt')}
+      class="inline-block mt-8 bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+    >
+      {t(locale, 'cta.brief')}
+    </a>
+  </section>
 </BaseLayout>

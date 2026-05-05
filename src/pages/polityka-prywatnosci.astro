@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const locale = 'pl' as const;
+const lastUpdate = '2026-05-05';
+---
+
+<BaseLayout
+  locale={locale}
+  title="Polityka prywatności — Waldex"
+  description="Zasady przetwarzania danych osobowych przez Waldex."
+  canonicalPath="polityka-prywatnosci"
+  noindex={true}
+>
+  <article class="container-default pt-12 md:pt-24 max-w-[68ch] prose-content">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold"
+    >
+      Polityka prywatności
+    </h1>
+    <p class="text-[var(--color-iron)] font-mono text-xs uppercase tracking-widest mt-4">
+      Ostatnia aktualizacja: {lastUpdate}
+    </p>
+
+    <p class="mt-12 p-4 border border-[var(--color-rust)] bg-[var(--color-bone)] text-sm">
+      <strong>Wersja robocza.</strong> Ostateczna treść zostanie uzupełniona po
+      potwierdzeniu danych firmy (nazwa, NIP, adres siedziby).
+    </p>
+
+    <h2>1. Administrator danych</h2>
+    <p>
+      Administratorem danych osobowych jest <strong>[NAZWA FIRMY]</strong>, NIP
+      <strong>[NIP]</strong>, z siedzibą pod adresem
+      <strong>[ADRES]</strong>. Kontakt:
+      <a href="mailto:Waldemar.sewerynn@gmail.com">Waldemar.sewerynn@gmail.com</a>,
+      tel. +48 608 038 746.
+    </p>
+
+    <h2>2. Cele i podstawy przetwarzania</h2>
+    <p>Przetwarzamy dane osobowe w następujących celach:</p>
+    <ul>
+      <li>
+        <strong>Odpowiedź na zapytanie ofertowe</strong> — podstawa: art. 6 ust.
+        1 lit. b RODO (czynności podejmowane na żądanie osoby przed zawarciem
+        umowy)
+      </li>
+      <li>
+        <strong>Realizacja umowy</strong> — podstawa: art. 6 ust. 1 lit. b RODO
+      </li>
+      <li>
+        <strong>Analityka strony</strong> (Google Analytics 4) — podstawa: art.
+        6 ust. 1 lit. a RODO (zgoda wyrażona przez baner cookies)
+      </li>
+      <li>
+        <strong>Obowiązki podatkowo-księgowe</strong> — podstawa: art. 6 ust. 1
+        lit. c RODO
+      </li>
+    </ul>
+
+    <h2>3. Okres przechowywania</h2>
+    <ul>
+      <li>Korespondencja w sprawie wyceny: 12 miesięcy od ostatniego kontaktu</li>
+      <li>Dokumenty umowne i finansowe: 5 lat (zgodnie z ustawą o rachunkowości)</li>
+      <li>Dane analityczne (GA4): 14 miesięcy</li>
+    </ul>
+
+    <h2>4. Prawa osoby, której dane dotyczą</h2>
+    <p>
+      Przysługuje Ci prawo dostępu do swoich danych, ich sprostowania, usunięcia,
+      ograniczenia przetwarzania, przenoszenia, sprzeciwu oraz wniesienia skargi
+      do Prezesa Urzędu Ochrony Danych Osobowych.
+    </p>
+
+    <h2>5. Odbiorcy danych</h2>
+    <p>
+      Dane mogą być przekazywane zaufanym podmiotom przetwarzającym je w naszym
+      imieniu: dostawca poczty (Google Workspace), formularz kontaktowy
+      (Web3Forms), platforma analityczna (Google Analytics 4 / Cloudflare
+      Analytics), hosting (Cloudflare Pages — Niemcy/UE).
+    </p>
+
+    <h2>6. Cookies</h2>
+    <p>
+      Szczegóły dotyczące plików cookies opisaliśmy w
+      <a href="/cookies">Polityce cookies</a>.
+    </p>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .prose-content h2 {
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+  }
+  .prose-content p {
+    margin-block: 1em;
+    line-height: var(--leading-body);
+  }
+  .prose-content ul,
+  .prose-content ol {
+    margin-block: 1em;
+    padding-inline-start: 1.5em;
+  }
+  .prose-content li {
+    margin-block: 0.4em;
+  }
+  .prose-content a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+</style>

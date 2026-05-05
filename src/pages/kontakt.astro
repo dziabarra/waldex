@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactForm from '@components/ContactForm.astro';
+import { t } from '@i18n/utils';
+
+const locale = 'pl' as const;
+const phone = '+48 608 038 746';
+const phoneTel = '+48608038746';
+const email = import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'Waldemar.sewerynn@gmail.com';
+const wa = `https://wa.me/${phoneTel.replace(/\D/g, '')}`;
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${t(locale, 'nav.contact')} — ${t(locale, 'site.name')}`}
+  description="Skontaktuj się z Waldex — telefon, email lub krótki brief. Odpowiadamy w 1 dzień roboczy."
+  canonicalPath="kontakt"
+>
+  <section class="container-default pt-12 md:pt-24">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight max-w-[24ch]"
+    >
+      {t(locale, 'contact.heading')}
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+      {t(locale, 'contact.subheading')}
+    </p>
+  </section>
+
+  <section
+    class="container-default mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24"
+  >
+    <aside>
+      <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+        Telefon / WhatsApp
+      </p>
+      <p class="mt-2">
+        <a href={`tel:${phoneTel}`} class="text-2xl font-semibold tracking-tight">
+          {phone}
+        </a>
+      </p>
+      <p class="mt-2 text-sm">
+        <a href={wa} class="text-[var(--color-rust)] underline underline-offset-4">
+          Napisz na WhatsApp →
+        </a>
+      </p>
+
+      <p class="mt-12 font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+        Email
+      </p>
+      <p class="mt-2">
+        <a href={`mailto:${email}`} class="text-lg break-all">
+          {email}
+        </a>
+      </p>
+
+      <p class="mt-12 font-mono text-xs uppercase tracking-widest text-[var(--color-iron)]">
+        Godziny
+      </p>
+      <p class="mt-2">pn–pt 8:00–17:00</p>
+    </aside>
+
+    <ContactForm locale={locale} />
+  </section>
+</BaseLayout>

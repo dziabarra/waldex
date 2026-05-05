@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import RealizacjaCard from '@components/RealizacjaCard.astro';
+import { t } from '@i18n/utils';
+
+const locale = 'pl' as const;
+
+const all = await getCollection('realizacje', (e) =>
+  e.data.locale === 'pl' && !e.data.draft,
+);
+const sorted = all.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${t(locale, 'nav.realizations')} — ${t(locale, 'site.name')}`}
+  description="Realizacje stoisk targowych Waldex — zabudowy targowe szyte na miarę dla wystawców w Polsce i UE."
+  canonicalPath="realizacje"
+>
+  <section class="container-default pt-12 md:pt-24">
+    <h1
+      class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] font-semibold tracking-tight max-w-[20ch]"
+    >
+      {t(locale, 'nav.realizations')}
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+      Wybrane stoiska zaprojektowane i zbudowane przez nasz zespół. Każda
+      realizacja to inny brief, ten sam standard wykonania.
+    </p>
+  </section>
+
+  <section class="container-default mt-16 md:mt-24">
+    {
+      sorted.length === 0 ? (
+        <p class="text-[var(--color-iron)]">{t(locale, 'realizations.empty')}</p>
+      ) : (
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 list-none p-0">
+          {sorted.map((entry) => (
+            <li>
+              <RealizacjaCard entry={entry} locale={locale} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      sorted.length > 0 && sorted.length < 4 && (
+        <p class="mt-16 text-[var(--color-iron)] font-mono text-sm uppercase tracking-widest">
+          Więcej realizacji wkrótce.
+        </p>
+      )
+    }
+  </section>
+</BaseLayout>

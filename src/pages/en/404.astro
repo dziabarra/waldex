@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { localizedUrl, t } from '@i18n/utils';
+
+const locale = 'en' as const;
+---
+
+<BaseLayout
+  locale={locale}
+  title="404 — Page not found — Waldex"
+  description="This page doesn't exist or has been moved."
+  noindex={true}
+>
+  <section class="container-default pt-24 md:pt-36 pb-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-[var(--color-rust)]">
+      404
+    </p>
+    <h1
+      class="mt-4 text-[length:var(--text-hero)] leading-[var(--leading-hero)] font-semibold tracking-tight max-w-[20ch]"
+    >
+      Page not found.
+    </h1>
+    <p class="mt-6 max-w-[60ch] text-[var(--color-iron)] text-lg">
+      It may have been moved, removed, or never existed. Try starting from the
+      home page.
+    </p>
+    <div class="mt-12 flex flex-col sm:flex-row gap-4">
+      <a
+        href={localizedUrl(locale, '')}
+        class="inline-block bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+      >
+        Home
+      </a>
+      <a
+        href={localizedUrl(locale, 'realizacje')}
+        class="inline-block border border-[var(--color-ink)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+      >
+        {t(locale, 'cta.see_realizations')}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
