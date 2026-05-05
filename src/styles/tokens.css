@@ -19,19 +19,18 @@
   --color-snow: #fafaf8;
 
   /* Typography
-   * Headings: GT America Mono / GT America (or Söhne if licensed).
-   * Self-hosted via @font-face in global.css; fallback stack covers all OSes.
+   * IBM Plex Sans (display + body) + IBM Plex Mono (accents).
+   * Self-hosted via Fontsource @import in global.css.
    * Strictly NOT: Inter, Geist, Fraunces, Mona Sans, Space Grotesk, Recoleta.
    */
   --font-display:
-    'GT America', 'Söhne', 'Untitled Sans', 'Helvetica Neue', helvetica, arial,
+    'IBM Plex Sans', system-ui, -apple-system, 'Helvetica Neue', helvetica, arial,
     sans-serif;
   --font-body:
-    'GT America', 'Söhne', 'Untitled Sans', 'Helvetica Neue', helvetica, arial,
+    'IBM Plex Sans', system-ui, -apple-system, 'Helvetica Neue', helvetica, arial,
     sans-serif;
   --font-mono:
-    'GT America Mono', 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, menlo,
-    monaco, monospace;
+    'IBM Plex Mono', ui-monospace, 'JetBrains Mono', menlo, monaco, monospace;
 
   /* Type scale (clamp-based, mobile-first) */
   --text-hero: clamp(3rem, 8vw, 6rem); /* 48–96px */

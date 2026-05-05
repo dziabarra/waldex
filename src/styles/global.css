@@ -1,4 +1,18 @@
 @import 'tailwindcss';
+
+/* Self-hosted fonts — IBM Plex Sans + Mono (Fontsource).
+ * Picked over Inter/Geist/Fraunces (impeccable.style anti-cliché list).
+ * IBM Plex was designed for an engineering company → industrial premium feel
+ * matches our palette. Each weight file ships latin + latin-ext via unicode-range,
+ * so the browser only loads the subset it needs (Polish chars covered).
+ */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
 @import './tokens.css';
 
 @layer base {

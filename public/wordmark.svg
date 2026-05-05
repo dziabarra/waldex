@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none" role="img" aria-label="Waldex">
+  <text
+    x="0"
+    y="36"
+    font-family="'IBM Plex Sans', system-ui, sans-serif"
+    font-weight="600"
+    font-size="40"
+    letter-spacing="-0.02em"
+    fill="currentColor"
+  >WALDEX</text>
+  <rect x="172" y="38" width="42" height="4" fill="#C8341A"/>
+</svg>

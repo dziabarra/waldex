@@ -24,10 +24,10 @@ const navItems = [
 >
   <a
     href={localizedUrl(locale, '')}
-    class="text-xl font-semibold tracking-tight"
+    class="block"
     aria-label={t(locale, 'site.name')}
   >
-    {t(locale, 'site.name')}
+    <img src="/wordmark.svg" alt={t(locale, 'site.name')} width="110" height="24" />
   </a>
 
   <nav aria-label="primary" class="hidden md:block">
