@@ -1,0 +1,59 @@
+---
+import { t } from '@i18n/utils';
+import { localizedUrl, getAlternateUrl } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const currentPath = Astro.url.pathname;
+const altUrl = getAlternateUrl(locale, currentPath);
+
+const navItems = [
+  { key: 'nav.realizations' as const, slug: 'realizacje' },
+  { key: 'nav.services' as const, slug: 'uslugi' },
+  { key: 'nav.blog' as const, slug: 'blog' },
+  { key: 'nav.contact' as const, slug: 'kontakt' },
+];
+---
+
+<header
+  class="container-default flex items-center justify-between py-6 md:py-8"
+>
+  <a
+    href={localizedUrl(locale, '')}
+    class="text-xl font-semibold tracking-tight"
+    aria-label={t(locale, 'site.name')}
+  >
+    {t(locale, 'site.name')}
+  </a>
+
+  <nav aria-label="primary" class="hidden md:block">
+    <ul class="flex items-center gap-8 text-sm">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={localizedUrl(locale, item.slug)}
+              class="hover:underline underline-offset-4"
+            >
+              {t(locale, item.key)}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a
+          href={altUrl}
+          hreflang={locale === 'pl' ? 'en' : 'pl-PL'}
+          aria-label={t(locale, 'lang.switch_aria')}
+          class="font-mono text-xs tracking-wider uppercase border border-current px-2 py-1 hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+        >
+          {t(locale, 'lang.switch_to')}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

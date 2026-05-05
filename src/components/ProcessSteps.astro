@@ -1,0 +1,48 @@
+---
+import { t } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const steps = [
+  { n: 1, key: 'process.step.1' as const },
+  { n: 2, key: 'process.step.2' as const },
+  { n: 3, key: 'process.step.3' as const },
+  { n: 4, key: 'process.step.4' as const },
+  { n: 5, key: 'process.step.5' as const },
+];
+---
+
+<section
+  class="container-default mt-24 md:mt-36"
+  aria-labelledby="process-heading"
+>
+  <h2
+    id="process-heading"
+    class="text-[length:var(--text-h1)] leading-[var(--leading-h1)] max-w-[20ch]"
+  >
+    {locale === 'pl' ? 'Pięć kroków od briefu do otwarcia.' : 'Five steps from brief to opening day.'}
+  </h2>
+
+  <ol class="mt-12 grid grid-cols-1 md:grid-cols-5 gap-px bg-[var(--color-iron)]">
+    {
+      steps.map((step) => (
+        <li class="bg-[var(--color-paper)] p-6 md:p-8">
+          <p class="font-mono text-xs text-[var(--color-rust)] tracking-widest">
+            0{step.n}
+          </p>
+          <h3 class="mt-3 text-[length:var(--text-h3)] leading-[var(--leading-h2)] font-semibold">
+            {t(locale, `${step.key}.title` as any)}
+          </h3>
+          <p class="mt-2 text-[var(--color-iron)] text-[length:var(--text-body)]">
+            {t(locale, `${step.key}.desc` as any)}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</section>

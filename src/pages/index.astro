@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import HeroHome from '@components/HeroHome.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import { t } from '@i18n/utils';
+
+const locale = 'pl' as const;
+---
+
+<BaseLayout
+  locale={locale}
+  title={t(locale, 'meta.home.title')}
+  description={t(locale, 'meta.home.description')}
+  canonicalPath=""
+>
+  <HeroHome locale={locale} />
+  <ProcessSteps locale={locale} />
+</BaseLayout>

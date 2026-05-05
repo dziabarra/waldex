@@ -1,0 +1,36 @@
+{
+  "name": "waldex",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check && tsc --noEmit",
+    "assets:heic": "node assets-pipeline/convert-heic.mjs",
+    "assets:check": "node assets-pipeline/check-no-heic.mjs",
+    "prebuild": "node assets-pipeline/check-no-heic.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "astro": "^5.10.0",
+    "sharp": "^0.34.0",
+    "tailwindcss": "^4.1.0",
+    "vanilla-cookieconsent": "^3.0.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^22.10.0",
+    "heic-convert": "^2.1.0",
+    "typescript": "^5.6.0"
+  }
+}

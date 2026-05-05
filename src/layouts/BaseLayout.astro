@@ -1,0 +1,46 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  canonicalPath,
+  ogImage,
+  noindex,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale === 'pl' ? 'pl-PL' : 'en'}>
+  <head>
+    <BaseHead
+      locale={locale}
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      ogImage={ogImage}
+      noindex={noindex}
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <Header locale={locale} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

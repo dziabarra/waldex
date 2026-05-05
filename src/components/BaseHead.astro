@@ -1,0 +1,102 @@
+---
+import '@styles/global.css';
+import { getHreflangAlternates } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonicalPath?: string; // path WITHOUT locale prefix, e.g. 'realizacje/cnc-2024'
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  canonicalPath = '',
+  ogImage,
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const hreflangs = getHreflangAlternates(canonicalPath);
+
+// GTM container ID — pulled from build env. Empty during dev = no GTM injection.
+const GTM_ID = import.meta.env.PUBLIC_GTM_ID ?? '';
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta
+  property="og:locale"
+  content={locale === 'pl' ? 'pl_PL' : 'en_US'}
+/>
+{ogImage && <meta property="og:image" content={`${site}${ogImage}`} />}
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- hreflang -->
+{
+  hreflangs.map((alt) => (
+    <link
+      rel="alternate"
+      hreflang={alt.hreflang}
+      href={`${site}${alt.href}`}
+    />
+  ))
+}
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Google Consent Mode v2 — defaults to denied; cookie banner updates after consent.
+     Loaded BEFORE GTM so the consent state is set before any tag fires. -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+
+{
+  GTM_ID && (
+    <script is:inline define:vars={{ GTM_ID }}>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', GTM_ID);
+    </script>
+  )
+}

@@ -1,0 +1,54 @@
+---
+import { t, localizedUrl } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const headline =
+  locale === 'pl'
+    ? ['Stoiska targowe', 'szyte na miarę.']
+    : ['Trade fair stands', 'built to fit.'];
+
+const lead =
+  locale === 'pl'
+    ? 'Projektujemy, produkujemy, dostarczamy i montujemy. Pełen cykl, jeden zespół, terminy bez kompromisów.'
+    : 'We design, manufacture, deliver and install. One team, full cycle, no missed deadlines.';
+---
+
+<section
+  class="container-default pt-12 md:pt-24 pb-12 md:pb-24 relative"
+  aria-labelledby="hero-heading"
+>
+  <h1
+    id="hero-heading"
+    class="text-[length:var(--text-hero)] leading-[var(--leading-hero)] font-semibold tracking-tight max-w-[18ch]"
+  >
+    {headline[0]}
+    <span class="block text-[var(--color-rust)]">{headline[1]}</span>
+  </h1>
+
+  <p
+    class="mt-8 max-w-[44ch] text-[var(--color-iron)] text-lg md:text-xl"
+  >
+    {lead}
+  </p>
+
+  <div class="mt-12 flex flex-col sm:flex-row gap-4">
+    <a
+      href={localizedUrl(locale, 'kontakt')}
+      class="inline-block bg-[var(--color-ink)] text-[var(--color-paper)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-rust)] transition-colors"
+    >
+      {t(locale, 'cta.brief')}
+    </a>
+    <a
+      href={localizedUrl(locale, 'realizacje')}
+      class="inline-block border border-[var(--color-ink)] px-6 py-4 text-sm uppercase tracking-widest hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)] transition-colors"
+    >
+      {t(locale, 'cta.see_realizations')}
+    </a>
+  </div>
+</section>

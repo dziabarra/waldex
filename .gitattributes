@@ -1,0 +1,15 @@
+# Force LF line endings — Cloudflare Pages builds on Linux, dev is Windows.
+* text=auto eol=lf
+
+# Binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.heic binary
+*.HEIC binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap will be set once final domain is known.
+# Sitemap: https://waldex.pl/sitemap-index.xml

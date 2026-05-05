@@ -1,0 +1,55 @@
+---
+import { t, localizedUrl } from '@i18n/utils';
+import type { Locale } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="container-default border-t border-[var(--color-iron)] mt-24 py-12 text-sm"
+>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div>
+      <p class="font-display text-lg">{t(locale, 'site.name')}</p>
+      <p class="mt-2 text-[var(--color-iron)]">
+        {t(locale, 'site.tagline')}
+      </p>
+    </div>
+    <div>
+      <p class="uppercase tracking-wider text-xs text-[var(--color-iron)] mb-3">
+        {t(locale, 'footer.company')}
+      </p>
+      <ul class="space-y-2">
+        <li><a href={localizedUrl(locale, 'realizacje')}>{t(locale, 'nav.realizations')}</a></li>
+        <li><a href={localizedUrl(locale, 'uslugi')}>{t(locale, 'nav.services')}</a></li>
+        <li><a href={localizedUrl(locale, 'blog')}>{t(locale, 'nav.blog')}</a></li>
+        <li><a href={localizedUrl(locale, 'kontakt')}>{t(locale, 'nav.contact')}</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="uppercase tracking-wider text-xs text-[var(--color-iron)] mb-3">
+        {t(locale, 'footer.legal')}
+      </p>
+      <ul class="space-y-2">
+        <li>
+          <a href={localizedUrl(locale, 'polityka-prywatnosci')}>
+            {t(locale, 'footer.privacy')}
+          </a>
+        </li>
+        <li>
+          <a href={localizedUrl(locale, 'cookies')}>
+            {t(locale, 'footer.cookies')}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p class="mt-12 text-[var(--color-iron)]">
+    {t(locale, 'footer.copyright', { year })}
+  </p>
+</footer>
