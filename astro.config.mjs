@@ -5,9 +5,10 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Site URL — used by sitemap, rss, canonical tags, og:url, hreflang.
-// Override via PUBLIC_SITE_URL env var when the custom domain is connected.
-// Default: Cloudflare Workers preview URL where the site currently lives.
-const SITE = process.env.PUBLIC_SITE_URL ?? 'https://waldex.jtrzupek.workers.dev';
+// Override via PUBLIC_SITE_URL env var if needed. Default: production custom domain.
+// Until DNS propagation completes, the site is also reachable at the workers.dev
+// alias, but canonical tags here point search engines to the final URL.
+const SITE = process.env.PUBLIC_SITE_URL ?? 'https://strefaexpo.pl';
 
 export default defineConfig({
   site: SITE,
