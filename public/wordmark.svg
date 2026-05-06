@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none" role="img" aria-label="Waldex">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" fill="none" role="img" aria-label="Strefa Expo">
   <text
     x="0"
     y="36"
@@ -7,6 +7,6 @@
     font-size="40"
     letter-spacing="-0.02em"
     fill="currentColor"
-  >WALDEX</text>
-  <rect x="172" y="38" width="42" height="4" fill="#C8341A"/>
+  >STREFA EXPO</text>
+  <rect x="270" y="38" width="42" height="4" fill="#C8341A"/>
 </svg>

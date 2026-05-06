@@ -1,4 +1,4 @@
-# Dane firmy Waldex — stan na 2026-05-05
+# Dane firmy Strefa Expo — stan na 2026-05-06
 
 Zbierane sukcesywnie od Waldka. Wszystko niżej **wstawione na placeholderach do strony do czasu pełnych danych**.
 
@@ -13,15 +13,11 @@ Zbierane sukcesywnie od Waldka. Wszystko niżej **wstawione na placeholderach do
 
 ## Brand
 
-- **Nazwa firmy**: **TODO** — Waldek dośle. Bez nazwy nie kupujemy domeny ani nie ustawiamy `<title>`/og.
-- **Domena**: `.pl` — czeka na decyzję Waldka. Janek wysłał 4.05.2026 5 propozycji opartych na nazwisku:
-  1. `sewerynexpo.pl`
-  2. `seweryn-expo.pl`
-  3. `ws-stands.pl`
-  4. `wsexpo.pl`
-  5. `stoiskaseweryn.pl`
-- **Logo / KV**: brak — wordmark tekstowy IBM Plex Sans + rust accent (Faza 3 zrobiona)
-- **Social media**: brak
+- **Nazwa firmy**: **Strefa Expo** ✅ (Waldek wybrał 6.05.2026)
+- **Domena**: **strefaexpo.pl** ✅ (dostępna w OVH, czeka na rejestrację)
+- **Logo / KV**: brak — wordmark tekstowy IBM Plex Sans + rust accent (zrobiony, używany w Header)
+- **Social media**: brak (do uzupełnienia)
+- **Email firmowy** (po rejestracji domeny): `kontakt@strefaexpo.pl`
 
 ## Materiały do strony
 
@@ -34,11 +30,12 @@ Zbierane sukcesywnie od Waldka. Wszystko niżej **wstawione na placeholderach do
 
 ### Master Colors @ Plastpol 2025 (Kielce)
 
-- 1 zdjęcie z faktycznej budowy stoiska (`whatsapp-batch-2/001_*`)
-- 10 zdjęć koncepcji 3D (`whatsapp-batch-2/003_*` + 005-021)
-- Branża: tworzywa sztuczne (Plastpol = Międzynarodowe Targi Przetwórstwa Tworzyw Sztucznych)
+- **Powierzchnia: 80 m²** (8 × 10 m), wieża centralna 4 m, moduły 2,76 m
+- Master Colors = dystrybutor maszyn dla branży tworzyw sztucznych z 9 markami partnerskimi: MORETTO, technotrans, BREYER, SIEMPELKAMP, EAS, DEIFEL, orcinus, Cycle Temp, gneuß
+- 1 zdjęcie z faktycznej budowy + 10 koncepcji 3D + 4 widoki akceptacji bryły + 1 KV slide projektowania grafiki
 - Live: `/realizacje/master-colors-plastpol-2025`
-- Status: czekam na potwierdzenie Waldka — powierzchnia (m²), zgoda klienta na nazwę, krótki opis
+- **TODO**: 2 screenshoty wymiarowania na planie hali (PDF export, czeka na user upload)
+- **TODO**: zgoda klienta Master Colors na publiczną nazwę (placeholder true)
 
 ### BSG @ FSB 2023 (Kolonia)
 

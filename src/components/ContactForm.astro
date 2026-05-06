@@ -18,7 +18,7 @@ const formAction = WEB3FORMS_KEY
   : `mailto:${FALLBACK_EMAIL}`;
 const formMethod = WEB3FORMS_KEY ? 'POST' : 'GET';
 
-const subjectPrefix = locale === 'pl' ? 'Brief Waldex —' : 'Waldex brief —';
+const subjectPrefix = locale === 'pl' ? 'Brief Strefa Expo —' : 'Strefa Expo brief —';
 ---
 
 <form
@@ -30,7 +30,7 @@ const subjectPrefix = locale === 'pl' ? 'Brief Waldex —' : 'Waldex brief —';
     WEB3FORMS_KEY && (
       <>
         <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-        <input type="hidden" name="from_name" value="Waldex Website" />
+        <input type="hidden" name="from_name" value="Strefa Expo Website" />
         <input type="hidden" name="subject" value={`${subjectPrefix} new submission`} />
         <input type="hidden" name="redirect" value={locale === 'pl' ? '/kontakt?ok' : '/en/contact?ok'} />
       </>

@@ -10,7 +10,7 @@ import type { Locale } from './routes';
  */
 export const UI = {
   pl: {
-    'site.name': 'Waldex',
+    'site.name': 'Strefa Expo',
     'site.tagline': 'Stoiska targowe szyte na miarę',
 
     'nav.realizations': 'Realizacje',
@@ -31,9 +31,9 @@ export const UI = {
     'footer.legal': 'Informacje prawne',
     'footer.privacy': 'Polityka prywatności',
     'footer.cookies': 'Polityka cookies',
-    'footer.copyright': '© {year} Waldex. Wszelkie prawa zastrzeżone.',
+    'footer.copyright': '© {year} Strefa Expo. Wszelkie prawa zastrzeżone.',
 
-    'meta.home.title': 'Waldex — stoiska targowe szyte na miarę',
+    'meta.home.title': 'Strefa Expo — stoiska targowe szyte na miarę',
     'meta.home.description':
       'Projekt, produkcja, transport, montaż i demontaż stoisk targowych w Polsce i UE. 5-stopniowy proces, terminy bez kompromisów.',
 
@@ -88,7 +88,7 @@ export const UI = {
   },
 
   en: {
-    'site.name': 'Waldex',
+    'site.name': 'Strefa Expo',
     'site.tagline': 'Custom-built trade fair stands',
 
     'nav.realizations': 'Realizations',
@@ -109,9 +109,9 @@ export const UI = {
     'footer.legal': 'Legal',
     'footer.privacy': 'Privacy policy',
     'footer.cookies': 'Cookie policy',
-    'footer.copyright': '© {year} Waldex. All rights reserved.',
+    'footer.copyright': '© {year} Strefa Expo. All rights reserved.',
 
-    'meta.home.title': 'Waldex — custom-built trade fair stands',
+    'meta.home.title': 'Strefa Expo — custom-built trade fair stands',
     'meta.home.description':
       'Design, manufacturing, transport, installation and dismantling of trade fair stands in Poland and the EU. 5-step process, no missed deadlines.',
 

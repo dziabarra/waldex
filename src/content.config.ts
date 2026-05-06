@@ -57,7 +57,7 @@ const blog = defineCollection({
       date: z.coerce.date(),
       updated: z.coerce.date().optional(),
       tags: z.array(z.string()).default([]),
-      author: z.string().default('Waldex'),
+      author: z.string().default('Strefa Expo'),
       ogImage: image().optional(),
       draft: z.boolean().default(false),
       canonicalSlug: z.string().regex(slugRegex), // ties PL↔EN versions
