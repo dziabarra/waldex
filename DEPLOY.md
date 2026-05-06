@@ -1,10 +1,21 @@
-# Deploy Waldex to Cloudflare Pages
+# Deploy Waldex to Cloudflare
+
+**Aktualny stan:** projekt jest podpięty jako **Cloudflare Worker** (nowy "static assets"
+format, następca Pages) z git integration do `dziabarra/waldex`. Live URL:
+**https://waldex.jtrzupek.workers.dev/**
+
+Każdy `git push origin main` automatycznie triggeruje build + deploy.
+Każdy push do innego brancha lub PR daje preview URL `<branch>-waldex.jtrzupek.workers.dev`.
+
+Wrangler CLI nie jest wymagany do regularnych deployów — wszystko leci przez webhook GitHub → Cloudflare.
+
+---
 
 ## 1. GitHub repo
 
 Already pushed — see `git remote -v`.
 
-## 2. Cloudflare Pages — pierwsze podpięcie
+## 2. Cloudflare Pages — pierwsze podpięcie (HISTORIA — już zrobione)
 
 1. Idź na **dash.cloudflare.com** → zaloguj się (lub załóż konto, free tier wystarczy)
 2. W lewym menu: **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
@@ -45,8 +56,9 @@ Po wybraniu nazwy firmy + zarejestrowaniu domeny w OVH:
 2. Po 48h: w OVH → "Modyfikuj serwery DNS" → wpisz nameservery Cloudflare (dostarczone przez CF gdy dodajesz domenę)
 3. W Cloudflare → dashboard → **Add a Site** → wpisz domenę → wybierz Free plan → CF skanuje istniejące rekordy
 4. Cloudflare poda 2 nameservery typu `XXX.ns.cloudflare.com` — wpisujesz je w OVH
-5. Po propagacji DNS (15min - 24h): w **Workers & Pages** → projekt waldex → **Custom domains** → **Set up a domain** → wpisz domenę
+5. Po propagacji DNS (15min - 24h): w **Workers & Pages → waldex → Settings → Domains & Routes** → **Add** → wpisz domenę
 6. Cloudflare auto-issue Universal SSL (~15-60 min)
+7. **Update env var** `PUBLIC_SITE_URL` w **Workers & Pages → waldex → Settings → Build → Variables and secrets** na `https://<domena>.pl` → zatwierdź → push pusty commit (`git commit --allow-empty -m "Trigger rebuild for new domain"`) lub w UI **Deployments → Retry deployment**
 
 ### 4b. GA4 + GTM
 
