@@ -11,7 +11,7 @@ const { locale } = Astro.props;
 // Web3Forms access key — set in Cloudflare Pages env or local .env
 // At build time, missing key → form falls back to mailto: action.
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
-const FALLBACK_EMAIL = import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'Waldemar.sewerynn@gmail.com';
+const FALLBACK_EMAIL = import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'kontakt@strefaexpo.pl';
 
 const formAction = WEB3FORMS_KEY
   ? 'https://api.web3forms.com/submit'
