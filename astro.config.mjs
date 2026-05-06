@@ -4,9 +4,10 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Site URL — replace with the real production domain once Waldek confirms.
-// Used by sitemap, rss, canonical tags, og:url, hreflang.
-const SITE = process.env.PUBLIC_SITE_URL ?? 'https://waldex.pl';
+// Site URL — used by sitemap, rss, canonical tags, og:url, hreflang.
+// Override via PUBLIC_SITE_URL env var when the custom domain is connected.
+// Default: Cloudflare Workers preview URL where the site currently lives.
+const SITE = process.env.PUBLIC_SITE_URL ?? 'https://waldex.jtrzupek.workers.dev';
 
 export default defineConfig({
   site: SITE,
