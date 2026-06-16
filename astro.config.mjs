@@ -4,6 +4,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // Site URL — used by sitemap, rss, canonical tags, og:url, hreflang.
 // Override via PUBLIC_SITE_URL env var if needed. Default: production custom domain.
 // Until DNS propagation completes, the site is also reachable at the workers.dev
@@ -14,10 +16,12 @@ export default defineConfig({
   site: SITE,
   output: 'static',
   trailingSlash: 'never',
+
   build: {
     inlineStylesheets: 'auto',
     format: 'directory',
   },
+
   i18n: {
     defaultLocale: 'pl',
     locales: ['pl', 'en'],
@@ -29,19 +33,23 @@ export default defineConfig({
     // of listings), not silently serve PL under /en/. Per-page mirroring is
     // handled explicitly by src/pages/en/*.
   },
+
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover',
   },
+
   image: {
     responsiveStyles: true,
     layout: 'constrained',
   },
+
   vite: {
     // @ts-expect-error @tailwindcss/vite is typed against Vite 8; Astro 5.18 ships with Vite 6.
     // Runtime works correctly; this is a typing-only mismatch caused by two Vite copies in the tree.
     plugins: [tailwindcss()],
   },
+
   integrations: [
     mdx(),
     sitemap({
@@ -55,4 +63,6 @@ export default defineConfig({
         !page.endsWith('/404/'),
     }),
   ],
+
+  adapter: cloudflare()
 });
