@@ -36,3 +36,9 @@ materialy/whatsapp-raw/
 # heic — source masters never committed (preconverted to webp via assets-pipeline)
 **/*.heic
 **/*.HEIC
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

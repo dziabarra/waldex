@@ -1,20 +1,46 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"],
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@i18n/*": ["./src/i18n/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@assets/*": ["./src/assets/*"]
-    },
-    "types": ["astro/client"],
-    "verbatimModuleSyntax": true,
-    "allowImportingTsExtensions": false
-  },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "assets-pipeline", "zdjecia", "materialy"]
+	"extends": "astro/tsconfigs/strict",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"~/*": [
+				"./src/*"
+			],
+			"@/*": [
+				"./src/*"
+			],
+			"@components/*": [
+				"./src/components/*"
+			],
+			"@layouts/*": [
+				"./src/layouts/*"
+			],
+			"@i18n/*": [
+				"./src/i18n/*"
+			],
+			"@styles/*": [
+				"./src/styles/*"
+			],
+			"@assets/*": [
+				"./src/assets/*"
+			]
+		},
+		"types": [
+			"astro/client"
+		],
+		"verbatimModuleSyntax": true,
+		"allowImportingTsExtensions": false
+	},
+	"include": [
+		".astro/types.d.ts",
+		"**/*",
+		"./worker-configuration.d.ts"
+	],
+	"exclude": [
+		"dist",
+		"node_modules",
+		"assets-pipeline",
+		"zdjecia",
+		"materialy"
+	]
 }
